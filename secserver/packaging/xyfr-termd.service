@@ -1,0 +1,44 @@
+[Unit]
+Description=Xyfr remote terminal server (wg-native, isolated from the messaging client)
+After=network-online.target
+Wants=network-online.target
+# Refuse to start without a config -- no key means no identity, and we must not
+# fall back to anything permissive.
+AssertPathExists=/etc/xyfr/termd.conf
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/xyfr-termd /etc/xyfr/termd.conf
+Restart=on-failure
+RestartSec=5
+
+# The load-bearing lines: sessions run as a dedicated unprivileged user, so a
+# forked shell is that user and cannot touch the messaging client's key (owned
+# by YOU, a different user). This is what actually closes J-8.
+# NOTE: systemd directives take NO trailing '#' comments -- a comment on the
+# same line makes it parse the value as "true # ..." and SILENTLY DROP the
+# directive. Keep every comment on its own line.
+User=xyfr
+Group=xyfr
+WorkingDirectory=/var/lib/xyfr
+
+# Defense in depth on top of the UID (a peer's shell is still a shell).
+# A shell cannot regain privilege via setuid binaries / sudo:
+NoNewPrivileges=true
+# /home is INVISIBLE to the service -- the owner's files vanish:
+ProtectHome=true
+# The whole filesystem is read-only except ReadWritePaths below:
+ProtectSystem=strict
+ReadWritePaths=/var/lib/xyfr
+# Its own /tmp, not the host's:
+PrivateTmp=true
+# Cannot create setuid/setgid files:
+RestrictSUIDSGID=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictNamespaces=true
+RemoveIPC=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

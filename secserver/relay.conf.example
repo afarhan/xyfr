@@ -1,0 +1,19 @@
+# Relay configuration -- copy to relay.conf and fill in.
+# relay.conf is deliberately NOT tracked in git: it is deployment state, not
+# source (a bench copy points at a LAN address, a deployment at a public one).
+# Format: key=value (no spaces around =)
+
+# The SERVER's wg static PUBLIC key (64-char hex).
+server_key=<64-hex>
+
+# This relay's own wg static PRIVATE key (64-char hex). Generate with ./keygen.
+# Its corresponding PUBLIC key must be listed as a relay_key= line in the
+# server's server.conf, or the server refuses this relay's tunnel.
+my_private=<64-hex>
+
+# Where the server is.
+server_ip=<server-ip>
+
+# How this relay advertises itself to clients.
+my_ip=<this-relay-public-ip>
+my_port=5004

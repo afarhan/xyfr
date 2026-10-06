@@ -1,0 +1,21 @@
+# xyfr-termd — the standalone remote-terminal server (THREAT_MODEL J-8).
+# Copy to termd.conf. This daemon holds its OWN key, SEPARATE from the messaging
+# client's, and is meant to run as its own unprivileged user so a forked shell
+# cannot reach your identity or files.
+# Format: key=value (no spaces around =)
+
+# The SERVER's wg static PUBLIC key (64-char hex) -- same server phone uses.
+server_key=<64-hex>
+
+# THIS terminal server's OWN private key (64-char hex). Generate a FRESH one
+# with ./keygen -- do NOT reuse the messaging client's key. Two processes cannot
+# share one wg identity (the relay ping-pongs the route), and a separate key is
+# exactly what isolates the terminal from your messaging.
+my_private=<64-hex>
+
+server_ip=<server-or-relay-ip>
+server_port=5004
+
+# Default DENY. A handheld may open a terminal ONLY if its partkey is listed.
+# With no allow_terminal lines the server accepts no one.
+#allow_terminal=6b419f62

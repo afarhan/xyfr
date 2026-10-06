@@ -1,0 +1,34 @@
+create table users
+(
+  userid 		char(64) primary key,
+  creditBalance 	decimal(10,2),
+
+  port 		int,
+  ip 	int unsigned,
+
+	fwdport	int,
+	fwdip int unsigned,
+
+	invitedBy char(64) not null,
+  expiryDate 	int unsigned,
+  timeChallengeExpires int unsigned,
+  challenge 	char(16),
+  prevChallenge 	char(16),
+  password 	char(20) not null,
+  typeOfConnection tinyint,
+
+  pin     	int unsigned,
+  priority 	int,
+  forward 	char(64),
+  redirect tinyint,
+  sessionid      int unsigned,
+
+
+  timeCookieExpires int unsigned,
+
+	dateCreation int unsigned,	
+  cookie 	char(36),
+	email	char(128),
+	title	char(128)
+);
+

@@ -1,0 +1,36 @@
+# build artifacts
+*.o
+*.d
+dist/
+firmware/
+__pycache__/
+
+# editor temporaries
+*.swp
+*.swo
+*~
+
+# host binaries (built by secserver/Makefile)
+secserver/server
+secserver/client
+secserver/relay
+secserver/keygen
+secserver/dbadmin
+secserver/dbc
+secserver/phone
+secserver/backup_tool
+secserver/xyfr-termd
+secserver/host_test
+secserver/*_test
+secserver/fsroot/
+
+# Deployment config and runtime state: per-machine, never source. Each holds a
+# private key. Copy the *.conf.example templates and fill them in.
+secserver/*.conf
+secserver/*.db
+secserver/*.db-shm
+secserver/*.db-wal
+
+# bench provisioning values for SEED_TEST_DEFAULTS: a private key and local
+# network details (see bench_seed.h.example)
+bench_seed.h

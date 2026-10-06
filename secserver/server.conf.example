@@ -1,0 +1,19 @@
+# Server configuration -- copy to server.conf and fill in.
+# server.conf is deliberately NOT tracked in git: it is deployment state, not
+# source. Tracking it once meant a `git pull` on a deployment would overwrite
+# the live endpoint and drop relay_key entirely.
+# Format: key=value (no spaces around =)
+
+# This server's wg static PRIVATE key (64-char hex). Generate with ./keygen.
+key_hex=<64-hex>
+
+# Address to bind. 0.0.0.0 = all interfaces; a deployment usually sets its
+# own public IP here.
+server_ip=0.0.0.0
+
+# Authorized relay static PUBLIC keys (64-char hex), one relay_key= line per
+# relay. A relay whose key is not listed is refused. NOTE: an omitted or stale
+# relay_key takes the entire relay tunnel down -- clients can then neither log
+# in, resolve contacts, nor activate, and the failure looks like a dead network
+# rather than a config error.
+#relay_key=<64-hex>

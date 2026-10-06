@@ -1,0 +1,7 @@
+create table contacts 
+(
+        userid 		char(64),
+	contact		char(64),
+	status		char(1),
+	index (userid)
+)

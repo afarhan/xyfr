@@ -1,0 +1,30 @@
+# Host CLI (./phone) configuration -- copy to client.conf and fill in.
+# client.conf is deliberately NOT tracked in git: it is bench state, not source.
+# Format: key=value (no spaces around =)
+
+# The SERVER's wg static PUBLIC key (64-char hex).
+server_key=<64-hex>
+
+# This client's wg static PRIVATE key (64-char hex). Bench identities live in
+# test_keys.txt at the repo root. Never reuse the DEVICE's own key: two peers
+# sharing one key ping-pong the relay's route and mid-call frames go to the
+# wrong one.
+my_private=<64-hex>
+
+# Where to send. server_port 43210 talks to the central server directly;
+# 5004 goes via a relay, which is what actually exercises the relay route table
+# for peer calls.
+server_ip=<server-or-relay-ip>
+server_port=5004
+
+# The local multi-phone harness uses client.conf.A / .B / .C, one per phone.
+# Run each phone from its OWN cwd -- they collide on fsroot/ otherwise.
+
+# Remote terminal access control (THREAT_MODEL J-8). DEFAULT DENY: a peer may
+# open a terminal ONLY if its partkey (first 8 hex of its public key) is listed
+# here. With no allow_terminal lines the terminal is off. wg already proves the
+# peer holds the key; this decides whether that key is permitted a shell.
+#   WARNING: the shell currently runs as YOU. Until it runs as a dedicated
+#   'xyfr' user, only list a peer you fully trust.
+#allow_terminal=caca5750
+#allow_terminal=6b419f62

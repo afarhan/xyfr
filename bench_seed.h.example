@@ -1,0 +1,26 @@
+// bench_seed.h -- values for SEED_TEST_DEFAULTS in xyfr.ino.
+//
+// Copy to bench_seed.h and fill in. bench_seed.h is deliberately NOT tracked in
+// git: it holds a private key and your own network details.
+//
+// Only read when SEED_TEST_DEFAULTS is 1. A normal build never includes it.
+
+// Two known access points, in priority order.
+#define BENCH_AP0_SSID  "<ssid>"
+#define BENCH_AP0_KEY   "<passphrase>"
+#define BENCH_AP1_SSID  "<ssid>"
+#define BENCH_AP1_KEY   "<passphrase>"
+
+// This device's wg static PRIVATE key (64-char hex). Generate with secserver/keygen.
+#define BENCH_DEVICE_PRIVATE_HEX  "<64-hex>"
+
+// Relay endpoint. ip4 packs octet 0 in the low byte: a.b.c.d is
+// (a | (b << 8) | (c << 16) | (d << 24)).
+#define BENCH_RELAY_IP4   (192u | (0u << 8) | (2u << 16) | (1u << 24))
+#define BENCH_RELAY_PORT  5004
+
+// One peer seeded as a valid contact: its name, its wg static PUBLIC key
+// (64-char hex), and its userid, which is the first 4 bytes of that key, big endian.
+#define BENCH_PEER_NAME        "bench"
+#define BENCH_PEER_PUBKEY_HEX  "<64-hex>"
+#define BENCH_PEER_USERID      0x00000000u
